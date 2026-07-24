@@ -1,0 +1,171 @@
+{
+  "name": "signoz New Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "incident-analysis",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        48,
+        -112
+      ],
+      "id": "05e116b1-e2fc-41e2-a2b0-a2a23fbbe42c",
+      "name": "Webhook",
+      "webhookId": "9baab4c1-ab96-4937-b4ff-6224b77066d8"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"service\": \"{{ $json.body.service }}\",\n  \"status\": \"{{ $json.body.status }}\",\n  \"error\": \"{{ $json.body.error }}\",\n  \"environment\": \"{{ $json.body.environment }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        272,
+        -112
+      ],
+      "id": "b6fe100a-e11a-44b0-b3a3-85940750c491",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Fetch Gemini response\nconst rawOutput = $input.first().json.output;\n\nlet parsed;\n\ntry {\n\n    parsed = JSON.parse(rawOutput);\n\n} catch (err) {\n\n    return [\n        {\n            json: {\n                success: false,\n                error: \"Failed to parse AI response.\",\n                raw_response: rawOutput,\n                generated_at: new Date().toISOString()\n            }\n        }\n    ];\n\n}\n\nreturn [\n    {\n        json: {\n\n            success: true,\n\n            service: $(\"Edit Fields\").first().json.service,\n\n            statusCode: $(\"Edit Fields\").first().json.status,\n\n            environment: $(\"Edit Fields\").first().json.environment,\n\n            incident: {\n\n                severity: parsed.severity,\n\n                confidence: parsed.confidence,\n\n                rootCause: parsed.rootCause,\n\n                businessImpact: parsed.businessImpact,\n\n                recommendedActions: parsed.recommendedActions,\n\n                preventiveMeasures: parsed.preventiveMeasures,\n\n                estimatedRecoveryTime: parsed.estimatedRecoveryTime,\n\n                summary: parsed.summary\n\n            },\n\n            generated_at: new Date().toISOString()\n\n        }\n    }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        848,
+        -112
+      ],
+      "id": "362d6fdc-fafd-4e1a-a387-75255fb252a1",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.1-flash-lite",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        384,
+        96
+      ],
+      "id": "8d6f8244-34e7-435c-9814-304d65025dce",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "oS4OZg6ArN1FSAN3",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are AIFleet AI, a Senior Site Reliability Engineer (SRE), DevOps Architect, and Cloud Operations Specialist.\n\nYour responsibility is to analyze production incidents and generate a structured incident report that will be consumed directly by a web dashboard.\n\n=========================================================\nINCIDENT DETAILS\n=========================================================\n\nService:\n{{ $json.service }}\n\nHTTP Status Code:\n{{ $json.status }}\n\nError Message:\n{{ $json.error }}\n\nEnvironment:\n{{ $json.environment }}\n\n=========================================================\nOBJECTIVE\n=========================================================\n\nAnalyze the incident like an experienced SRE.\n\nReturn ONLY valid JSON.\n\nDo NOT return Markdown.\n\nDo NOT explain your reasoning.\n\nDo NOT wrap the JSON inside triple backticks.\n\nDo NOT include comments.\n\nDo NOT include any additional text.\n\nReturn exactly ONE JSON object.\n\n=========================================================\nRESPONSE FORMAT\n=========================================================\n\n{\n  \"severity\": \"\",\n  \"confidence\": 0,\n  \"rootCause\": \"\",\n  \"businessImpact\": \"\",\n  \"recommendedActions\": [\n    \"\",\n    \"\",\n    \"\"\n  ],\n  \"preventiveMeasures\": [\n    \"\",\n    \"\"\n  ],\n  \"estimatedRecoveryTime\": \"\",\n  \"summary\": \"\"\n}\n\n=========================================================\nRULES\n=========================================================\n\nSeverity must be one of:\n\nCritical\nHigh\nMedium\nLow\n\nConfidence\n\nInteger only\n\nRange:\n0-100\n\nRoot Cause\n\nMaximum 30 words.\n\nBusiness Impact\n\nExplain customer or business impact.\n\nMaximum 40 words.\n\nRecommended Actions\n\nExactly 3 items.\n\nShort action-oriented sentences.\n\nPreventive Measures\n\nExactly 2 items.\n\nEstimated Recovery Time\n\nExamples:\n\n15 minutes\n\n30 minutes\n\n1 hour\n\nUnknown\n\nSummary\n\nMaximum 35 words.\n\nProfessional.\n\n=========================================================\nQUALITY\n=========================================================\n\nThe report must resemble what would be generated by Datadog, Splunk, Grafana Cloud or PagerDuty.\n\nAvoid generic responses.\n\nMake the analysis specific to the provided service, error, status code and environment.\n\nReturn valid JSON only.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        496,
+        -112
+      ],
+      "id": "ce53095f-55c8-4dff-8ddc-916f800d0511",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1072,
+        -112
+      ],
+      "id": "32d8afe2-a9a1-4f3b-bcf6-fca5d3bc9cb4",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "66e450fd-3832-4367-8b77-3e6720d32b49",
+  "meta": {
+    "instanceId": "f8ce3d6400d6d339cafe0c3e02e06557616738946b9cd2e52f0fe71828e6954c"
+  },
+  "nodeGroups": [],
+  "id": "KEDRwPaYY5eYQxQi",
+  "tags": []
+}
