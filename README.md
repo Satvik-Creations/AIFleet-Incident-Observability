@@ -1,414 +1,219 @@
 <p align="center">
-  <img src="assets/AIFleet/AIFleet_logo.png" alt="AI Fleet Logo" width="180">
+  <img src="assets/AIFleet/AIFleet_logo.png" alt="AI Fleet Logo" width="160">
 </p>
 
-<h1 align="center">🚨 AIFleet Incident Observability</h1>
+<h1 align="center">AIFleet Incident Observability</h1>
 
 <p align="center">
-AI-Powered Production Incident Analysis with <b>n8n</b>, <b>Google Gemini</b>, <b>OpenTelemetry</b> & <b>SigNoz Cloud</b>
-</p>
-
-<p align="center">
-
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
-![n8n](https://img.shields.io/badge/n8n-Workflow-AE4BFF)
-![Google Gemini](https://img.shields.io/badge/Google-Gemini-4285F4)
-![OpenTelemetry](https://img.shields.io/badge/OpenTelemetry-Tracing-8A2BE2)
-![SigNoz](https://img.shields.io/badge/SigNoz-Observability-0B5FFF)
-![AI Agent](https://img.shields.io/badge/AI-Agent-success)
-![Production Ready](https://img.shields.io/badge/Production-Ready-brightgreen)
-
+  AI-powered production incident analysis, built on <b>n8n</b>, <b>Google Gemini</b>, <b>OpenTelemetry</b> and <b>SigNoz Cloud</b>.
 </p>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License">
+  <img src="https://img.shields.io/badge/n8n-Workflow-AE4BFF" alt="n8n">
+  <img src="https://img.shields.io/badge/Google-Gemini-4285F4" alt="Google Gemini">
+  <img src="https://img.shields.io/badge/OpenTelemetry-Tracing-8A2BE2" alt="OpenTelemetry">
+  <img src="https://img.shields.io/badge/SigNoz-Observability-0B5FFF" alt="SigNoz">
+  <img src="https://img.shields.io/badge/Production-Ready-brightgreen" alt="Production Ready">
+</p>
 
-<a href="https://drive.google.com/file/d/1nJl1n8iqdNkWOQcm9sF74L9dLEs9RxlE/view?usp=sharing">
-<img src="https://img.shields.io/badge/🎥-Project%20Demo-red?style=for-the-badge">
-</a>
-
-<a href="https://github.com/Satvik-Creations/AIFleet-Incident-Observability">
-<img src="https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge">
-</a>
-
+<p align="center">
+  <a href="https://drive.google.com/file/d/1nJl1n8iqdNkWOQcm9sF74L9dLEs9RxlE/view?usp=sharing">🎥 Watch the Demo</a> ·
+  <a href="#-getting-started">🚀 Getting Started</a> ·
+  <a href="#-project-screenshots">📸 Screenshots</a> ·
+  <a href="#-license">📜 License</a>
 </p>
 
 ---
 
-# 🚀 Overview
+## Contents
 
-Modern production systems generate thousands of logs and alerts every day. During an incident, engineers often spend valuable time manually investigating logs, identifying root causes, and determining corrective actions.
-
-**AIFleet Incident Observability** automates this process by combining the power of **AI Agents**, **workflow automation**, and **distributed tracing**.
-
-Whenever a production incident is received through a webhook, the workflow:
-
-- receives incident details
-- structures the incoming payload
-- analyzes the incident using Google Gemini
-- generates an AI-powered incident report
-- returns a structured response
-- exports telemetry using OpenTelemetry
-- visualizes complete execution inside SigNoz Cloud
-
-Instead of only knowing **whether a workflow executed**, developers can observe:
-
-- every workflow execution
-- every node execution
-- execution latency
-- bottlenecks
-- execution timeline
-- distributed traces
-- production health
+- [Overview](#overview)
+- [Problem Statement](#problem-statement)
+- [Solution](#solution)
+- [Features](#features)
+- [Architecture](#architecture)
+- [Workflow Stages](#workflow-stages)
+- [Observability with OpenTelemetry & SigNoz](#observability-with-opentelemetry--signoz)
+- [Repository Structure](#repository-structure)
+- [Getting Started](#getting-started)
+- [Project Screenshots](#project-screenshots)
+- [Technology Stack](#technology-stack)
+- [Design Decisions](#design-decisions)
+- [Security & Best Practices](#security--best-practices)
+- [Future Enhancements](#future-enhancements)
+- [Contributing](#contributing)
+- [Acknowledgements](#acknowledgements)
+- [License](#license)
 
 ---
 
-# 🎯 Problem Statement
+## Overview
 
-During production incidents, teams commonly face challenges such as:
+Production systems generate thousands of logs and alerts every day. When an incident hits, engineers typically lose valuable time manually digging through logs, tracing root causes, and deciding on the right corrective action.
 
-- Manual incident investigation
+**AIFleet Incident Observability** removes that manual overhead by combining an AI agent, workflow automation, and distributed tracing into a single pipeline. When a production incident lands on the webhook, the workflow automatically:
+
+- Receives and normalizes the incident payload
+- Analyzes it using Google Gemini
+- Generates an AI-powered incident report (severity, root cause, recommended actions, summary)
+- Returns a structured response to the caller
+- Exports full execution telemetry via OpenTelemetry
+- Visualizes every run inside SigNoz Cloud
+
+The result isn't just "the workflow ran" — it's full visibility into *how* it ran: per-node execution, latency, bottlenecks, and complete distributed traces.
+
+---
+
+## Problem Statement
+
+Teams handling production incidents commonly run into the same pain points:
+
+- Manual, time-consuming incident investigation
 - Slow root cause analysis
-- Lack of workflow visibility
-- Difficult debugging
-- No execution timeline
-- Limited production observability
+- No visibility into workflow execution
+- Difficult debugging with no execution timeline
+- Limited production-grade observability
 
-Without tracing, identifying the exact node responsible for increased latency or workflow failure becomes significantly more difficult.
+Without tracing, pinpointing which step in an automated pipeline is responsible for a slowdown or failure is far harder than it needs to be.
 
----
+## Solution
 
-# 💡 Solution
-
-This project combines four powerful technologies into a single production-ready workflow.
+AIFleet combines four technologies into one production-ready pipeline:
 
 | Component | Responsibility |
-|-----------|----------------|
-| n8n | Workflow Orchestration |
-| Google Gemini | AI Incident Analysis |
-| OpenTelemetry | Distributed Tracing |
-| SigNoz Cloud | Observability Platform |
+|---|---|
+| **n8n** | Workflow orchestration |
+| **Google Gemini** | AI-driven incident analysis |
+| **OpenTelemetry** | Distributed tracing instrumentation |
+| **SigNoz Cloud** | Trace storage, visualization & observability |
 
-Together, they create an AI-powered incident analysis pipeline with end-to-end observability.
-
----
-
-# ✨ Features
-
-## 🤖 AI Powered Incident Analysis
-
-Automatically analyzes production incidents using Google Gemini.
-
-The AI generates:
-
-- Incident Severity
-- Possible Root Cause
-- Recommended Actions
-- Executive Summary
+Together, they turn incident response into an automated, fully observable pipeline — from webhook to root-cause report.
 
 ---
 
-## ⚡ Webhook Based Incident Ingestion
+## Features
 
-Production incidents are received through an HTTP Webhook, making integration simple with external monitoring systems.
-
----
-
-## 🔄 Automated Workflow Orchestration
-
-The entire incident lifecycle is automated using n8n.
-
-No manual intervention is required.
-
----
-
-## 📊 Production Observability
-
-Integrated with SigNoz Cloud using OpenTelemetry.
-
-Provides:
-
-- Workflow traces
-- Node traces
-- Execution timelines
-- Performance insights
-- End-to-end visibility
+- **🤖 AI-Powered Incident Analysis** — Google Gemini evaluates severity, likely root cause, recommended actions, and produces an executive summary for every incident.
+- **⚡ Webhook-Based Ingestion** — Incidents arrive over a simple HTTP webhook, making it easy to wire up any monitoring or alerting tool.
+- **🔄 Fully Automated Orchestration** — The entire incident lifecycle runs through n8n with zero manual intervention.
+- **📊 Production Observability** — Workflow- and node-level traces, execution timelines, and performance insights via SigNoz Cloud.
+- **🔍 Distributed Tracing** — Every execution generates a distributed trace for complete post-incident analysis.
+- **🔥 Flame Graph Analysis** — Instantly spot which node is slowing the pipeline down.
+- **🌊 Waterfall View** — See execution order and per-span latency at a glance.
+- **📡 Zero-Code Instrumentation** — OpenTelemetry captures everything without touching the workflow's business logic.
 
 ---
 
-## 🔍 Distributed Tracing
-
-Every workflow execution generates distributed traces allowing complete execution analysis.
-
----
-
-## 📈 Flame Graph Analysis
-
-Visualizes execution time across every workflow node to quickly identify slow operations.
-
----
-
-## 🌊 Waterfall View
-
-Displays execution order together with latency, making bottleneck detection straightforward.
-
----
-
-## 📡 OpenTelemetry Instrumentation
-
-Native OpenTelemetry tracing captures workflow execution without modifying business logic.
-
----
-
-# 🏗 Architecture
+## Architecture
 
 <p align="center">
-<img src="assets/screenshots/architecture.png" width="900">
+  <img src="screenshots/architecture/architecture.png" width="850" alt="Architecture Diagram">
 </p>
-
-The complete execution flow follows the architecture below.
 
 ```text
                 Production Incident
-
                         │
-
                         ▼
-
                 HTTP Webhook Trigger
-
                         │
-
                         ▼
-
                   n8n Workflow Engine
-
                         │
-
             ┌───────────┴────────────┐
-
             ▼                        ▼
-
-     Data Preparation         Google Gemini
-
+     Data Preparation          Google Gemini
             │                        │
-
             └───────────┬────────────┘
-
                         ▼
-
               AI Incident Analysis
-
                         │
-
                         ▼
-
              Structured JSON Response
-
                         │
-
                         ▼
-
               OpenTelemetry Exporter
-
                         │
-
                         ▼
-
-                 SigNoz Cloud
-
+                  SigNoz Cloud
                         │
-
                         ▼
-
        Trace Explorer • Flame Graph • Waterfall
 ```
 
 ---
 
-# ⚙ Workflow Overview
+## Workflow Stages
 
-The workflow has been designed as a production incident pipeline consisting of six logical stages.
-
-<p align="center">
-<img src="assets/screenshots/n8n-workflow.png" width="100%">
-</p>
-
-## 1️⃣ Webhook Trigger
-
-Receives production incident payloads.
-
-Example:
-
-```json
-{
-  "service":"Payment Service",
-  "status":"Critical",
-  "error":"Database Connection Timeout",
-  "environment":"Production"
-}
-```
-
----
-
-## 2️⃣ Edit Fields
-
-Normalizes incoming payloads before AI processing.
-
-This ensures consistent data reaches the AI Agent.
-
----
-
-## 3️⃣ AI Agent
-
-Acts as an intelligent DevOps engineer.
-
-The agent evaluates:
-
-- severity
-- impact
-- probable root cause
-- corrective actions
-- summary
-
----
-
-## 4️⃣ Google Gemini
-
-Uses Google's Gemini model to generate production-grade incident analysis.
-
----
-
-## 5️⃣ Code Node
-
-Formats the AI response into a structured JSON payload.
-
-Adds:
-
-- timestamp
-- execution status
-- formatted response
-
----
-
-## 6️⃣ Response
-
-Returns the AI-generated incident report back to the client.
-
----
-
-# 📊 Observability
-
-One of the primary goals of this project is not only to automate incident analysis but also to make every execution observable.
-
-Using OpenTelemetry, each workflow execution exports traces directly to SigNoz Cloud.
-
-This enables complete visibility into workflow behavior without changing the workflow logic itself.
-
----
-
-# 🔭 OpenTelemetry Observability
-
-To achieve production-grade observability, this workflow is instrumented using **OpenTelemetry (OTel)**.
-
-Instead of relying only on execution logs, OpenTelemetry captures complete execution traces across the workflow, enabling engineers to inspect every stage of execution with rich metadata and timing information.
-
-The traces are exported directly from **n8n** to **SigNoz Cloud**, where they can be explored through multiple visualization tools.
-
-### OpenTelemetry Configuration
-
-The workflow has been configured with:
-
-- ✅ Workflow Tracing
-- ✅ Node-Level Tracing
-- ✅ Published Workflow Tracking
-- ✅ Trace Context Propagation
-- ✅ OTLP Export
-- ✅ SigNoz Cloud Integration
-
-This configuration provides complete visibility into every workflow execution without modifying the business logic.
-
----
-
-# ☁️ SigNoz Cloud Integration
+The pipeline is built as six logical stages inside n8n:
 
 <p align="center">
-<img src="assets/screenshots/signoz-dashboard.png" width="100%">
+  <img src="screenshots/n8n_workflow_display/1_n8n_workflow_display_before_execution.png" width="100%" alt="n8n workflow before execution">
 </p>
 
-SigNoz Cloud serves as the observability platform responsible for collecting, storing, and visualizing OpenTelemetry traces generated during workflow execution.
+| # | Stage | Description |
+|---|---|---|
+| 1 | **Webhook Trigger** | Receives the incoming incident payload — e.g. `{"service": "Payment Service", "status": "Critical", "error": "Database Connection Timeout", "environment": "Production"}` |
+| 2 | **Edit Fields** | Normalizes the raw payload so a consistent shape reaches the AI agent |
+| 3 | **AI Agent** | Acts as an intelligent DevOps engineer, evaluating severity, impact, and probable root cause |
+| 4 | **Google Gemini** | Powers the underlying reasoning behind the AI agent's analysis |
+| 5 | **Code Node** | Formats the AI's output into a structured JSON payload, adding a timestamp and execution status |
+| 6 | **Response** | Returns the final AI-generated incident report to the caller |
 
-Each execution creates a distributed trace containing detailed metadata, execution timing, node spans, and workflow performance metrics.
-
-Rather than manually inspecting logs, engineers can visualize the complete execution lifecycle in real time.
-
----
-
-# 🔎 Trace Explorer
+**Execution lifecycle, end to end:**
 
 <p align="center">
-<img src="assets/screenshots/trace-explorer.png" width="100%">
+  <img src="screenshots/n8n_workflow_display/2_n8n_workflow_display_waiting_for_execution.png" width="32%" alt="Waiting for execution">
+  <img src="screenshots/n8n_workflow_display/3_n8n_workflow_display_during_execution.png" width="32%" alt="During execution">
+  <img src="screenshots/n8n_workflow_display/4_n8n_workflow_display_after_execution.png" width="32%" alt="After execution">
 </p>
-
-Trace Explorer provides a high-level overview of every workflow execution.
-
-Each trace includes:
-
-- Workflow execution status
-- Total execution duration
-- Trace timeline
-- Span hierarchy
-- Service information
-- Workflow metadata
-
-This allows engineers to quickly determine whether an execution completed successfully and identify the overall execution time before drilling into individual spans.
 
 ---
 
-# 🔥 Flame Graph
+## Observability with OpenTelemetry & SigNoz
+
+Every execution is instrumented end-to-end with **OpenTelemetry (OTel)**, with traces exported directly from n8n into **SigNoz Cloud** — no changes to business logic required.
+
+**Enabled instrumentation:**
+
+- ✅ Workflow-level tracing
+- ✅ Node-level tracing
+- ✅ Published workflow tracking
+- ✅ Trace context propagation
+- ✅ OTLP export
+- ✅ SigNoz Cloud integration
+
+### SigNoz Cloud Dashboard
 
 <p align="center">
-<img src="assets/screenshots/flamegraph.png" width="100%">
+  <img src="screenshots/signoz.workflow.execute/_signoz.workflow.execution.png" width="100%" alt="SigNoz workflow execution overview">
 </p>
 
-The Flame Graph visualizes how execution time is distributed across the workflow.
+SigNoz collects, stores, and visualizes every trace generated by the workflow — giving engineers a real-time view of the execution lifecycle instead of manually reading through logs.
 
-Each block represents a span generated during execution.
-
-Benefits include:
-
-- Identifying slow workflow nodes
-- Understanding execution hierarchy
-- Measuring latency contribution
-- Detecting performance bottlenecks
-- Optimizing workflow performance
-
-Instead of searching through logs, latency hotspots become immediately visible.
-
----
-
-# 🌊 Waterfall View
+### Flame Graph
 
 <p align="center">
-<img src="assets/screenshots/waterfall.png" width="100%">
+  <img src="screenshots/signoz.workflow.execute/flame_graph.png" width="100%" alt="Flame graph">
 </p>
 
-The Waterfall View displays workflow execution chronologically.
+Visualizes exactly where execution time goes across the workflow, making slow nodes and bottlenecks immediately obvious.
 
-It provides visibility into:
+### Waterfall View
 
-- Node execution order
-- Individual span duration
-- Parent-child relationships
-- Execution overlap
-- Sequential workflow behavior
+<p align="center">
+  <img src="screenshots/signoz.workflow.execute/waterfall.png" width="100%" alt="Waterfall view">
+</p>
 
-This makes it significantly easier to understand the lifecycle of every workflow execution.
+Shows execution order, per-span duration, and parent-child relationships — ideal for understanding the sequential behavior of a run.
 
----
+### Span Details
 
-# 📑 Curated Trace Metadata
+<p align="center">
+  <img src="screenshots/signoz.workflow.execute/span_details.png" width="100%" alt="Span details">
+</p>
 
-Instead of exposing the complete OpenTelemetry payload, the project surfaces only the metadata that is useful for understanding workflow execution while avoiding unnecessary internal identifiers.
+**Curated trace metadata** — rather than exposing the raw OpenTelemetry payload, only the metadata useful for understanding execution is surfaced:
 
 ```json
 {
@@ -423,106 +228,80 @@ Instead of exposing the complete OpenTelemetry payload, the project surfaces onl
 }
 ```
 
-This metadata demonstrates the observability capabilities of the workflow while keeping sensitive implementation details private.
-
 ---
 
-# 📁 Repository Structure
+## Repository Structure
 
 ```text
 AIFleet-Incident-Observability
 │
-├── assets
-│   ├── logo
-│   ├── screenshots
-│   ├── demo
-│   ├── README.md
-│   └── acknowledgements.md
+├── .github/workflows         # CI configuration
+├── assets/AIFleet             # Branding assets (logo)
+├── backend                    # Supporting backend service
+├── demo                        # Demo-related assets
+├── docs                        # Additional project documentation
+├── n8n_workflow                # Exported n8n workflow JSON
+├── screenshots                 # All README screenshots, organized by feature
+│   ├── architecture
+│   ├── n8n_workflow_display
+│   ├── signoz.workflow.execute
+│   ├── command_center_reports
+│   ├── timed_execution_report_traces_15;11-25-07-2026
+│   └── acknowledgements
 │
-├── workflow
-│   └── Production Incident Analyzer n8n Workflow.json
-│
-├── README.md
+├── casting.yaml / casting.yaml.lock
+├── index.html
 ├── LICENSE
-└── .gitignore
+└── README.md
 ```
 
-The repository is organized to separate project documentation, workflow definitions, branding assets, screenshots, and supporting documentation for easier maintenance and collaboration.
-
 ---
 
-# 🚀 Getting Started
+## Getting Started
 
-## Prerequisites
+### Prerequisites
 
-Before running the project, ensure the following tools and services are available:
-
-- n8n
-- Google Gemini API
-- SigNoz Cloud Workspace
-- OpenTelemetry Support
+- An n8n instance (cloud or self-hosted)
+- A Google Gemini API key
+- A SigNoz Cloud workspace
 - Git
 
----
-
-# ⚙️ Installation
-
-### 1. Clone the Repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Satvik-Creations/AIFleet-Incident-Observability.git
-
 cd AIFleet-Incident-Observability
 ```
 
----
+### 2. Import the workflow
 
-### 2. Import the Workflow
+Import the JSON file from the [`n8n_workflow/`](n8n_workflow) folder into your n8n instance.
 
-Import the provided workflow JSON into your n8n instance.
+### 3. Configure Google Gemini credentials
 
-```
-workflow/
-└── Production Incident Analyzer n8n Workflow.json
-```
+Create a Google Gemini credential inside n8n and attach it to the **AI Agent** node.
 
----
+### 4. Publish the workflow
 
-### 3. Configure Google Gemini Credentials
-
-Create a Google Gemini credential inside n8n and attach it to the AI Agent.
-
----
-
-### 4. Publish the Workflow
-
-Publish the workflow to enable production execution and observability.
-
----
+Publish it in n8n to enable production execution and observability.
 
 ### 5. Configure OpenTelemetry
 
-Enable OpenTelemetry from the n8n settings.
-
-Recommended configuration:
+Enable OpenTelemetry from n8n's settings with the following configuration:
 
 | Setting | Value |
-|----------|-------|
+|---|---|
 | Exporter | OTLP |
 | Tracing | Enabled |
 | Node Spans | Enabled |
 | Published Workflow Tracking | Enabled |
 | Trace Propagation | Enabled |
 
-> **Note:** The actual OTLP endpoint and authentication details depend on your observability backend. Do not commit secrets or ingestion keys to the repository.
+> **Note:** The exact OTLP endpoint and authentication details depend on your observability backend. Never commit secrets or ingestion keys to the repository.
 
----
+### 6. Trigger the workflow
 
-### 6. Execute the Workflow
-
-Trigger the webhook with a production incident payload.
-
-Example request:
+Send a request to the webhook, e.g.:
 
 ```json
 {
@@ -533,83 +312,52 @@ Example request:
 }
 ```
 
-The workflow will:
-
-- Receive the incident
-- Analyze it using Gemini
-- Generate recommendations
-- Export OpenTelemetry traces
-- Visualize execution in SigNoz Cloud
+The workflow will receive the incident, analyze it with Gemini, generate recommendations, export OpenTelemetry traces, and surface the full execution in SigNoz Cloud.
 
 ---
 
-# 🎥 Project Demonstration
+## Project Screenshots
 
-A complete walkthrough of the workflow, AI analysis, and observability pipeline is available below.
+### Command Center Reports
+
+A rolling view of AI-generated incident reports as they're produced.
 
 <p align="center">
-
-### ▶️ Project Demo
-
-https://drive.google.com/file/d/1nJl1n8iqdNkWOQcm9sF74L9dLEs9RxlE/view?usp=sharing
-
+  <img src="screenshots/command_center_reports/report_ss_0.png" width="32%" alt="Command center report 1">
+  <img src="screenshots/command_center_reports/report_ss_1.png" width="32%" alt="Command center report 2">
+  <img src="screenshots/command_center_reports/report_ss_2.png" width="32%" alt="Command center report 3">
 </p>
 
-The demonstration covers:
+<details>
+<summary>See more command center reports</summary>
+<br>
+<p align="center">
+  <img src="screenshots/command_center_reports/report_ss_3.png" width="48%" alt="Command center report 4">
+  <img src="screenshots/command_center_reports/report_ss_4.png" width="48%" alt="Command center report 5">
+  <img src="screenshots/command_center_reports/report_ss_5.png" width="48%" alt="Command center report 6">
+  <img src="screenshots/command_center_reports/report_ss_6.png" width="48%" alt="Command center report 7">
+</p>
+</details>
 
-- Workflow execution
-- AI-powered incident analysis
-- OpenTelemetry tracing
-- SigNoz Trace Explorer
-- Flame Graph
-- Waterfall visualization
-- End-to-end observability
+### Timed Execution Snapshot
 
----
+A synchronized view of the command center, n8n execution, and SigNoz traces for a single run.
 
-# 🛡️ Security & Best Practices
-
-This repository intentionally avoids exposing sensitive configuration.
-
-The following are **not included**:
-
-- API Keys
-- Authorization Headers
-- OTLP Authentication Tokens
-- SigNoz Ingestion Keys
-- Environment Secrets
-- Internal Workspace Credentials
-
-Only representative workflow metadata and screenshots are included to demonstrate the observability implementation while following secure sharing practices.
+<p align="center">
+  <img src="screenshots/timed_execution_report_traces_15;11-25-07-2026/command_center_report_15;11.png" width="32%" alt="Timed command center report">
+  <img src="screenshots/timed_execution_report_traces_15;11-25-07-2026/n8n_workflow_execution_15;11.png" width="32%" alt="Timed n8n workflow execution">
+  <img src="screenshots/timed_execution_report_traces_15;11-25-07-2026/signoz_traces_execution.workflow_15;11.png" width="32%" alt="Timed SigNoz trace">
+</p>
 
 ---
 
-# 📸 Project Screenshots
-
-The repository includes screenshots demonstrating different stages of workflow execution and observability.
-
-Included visuals:
-
-- Workflow Canvas
-- Architecture Diagram
-- Trace Explorer
-- Flame Graph
-- Waterfall View
-- End-to-End Execution Flow
-
-These screenshots provide a visual understanding of how production incidents move through the complete observability pipeline.
-
----
-
-# 🛠️ Technology Stack
-
-This project combines workflow automation, generative AI, distributed tracing, and cloud observability into a single production-ready incident analysis pipeline.
+## Technology Stack
 
 | Category | Technology |
-|----------|------------|
+|---|---|
 | Workflow Automation | n8n |
 | Artificial Intelligence | Google Gemini |
-| Observability | SigNoz Cloud |
+| Observability Platform | SigNoz Cloud |
 | Telemetry Standard | OpenTelemetry |
 | Runtime | Node.js |
 | Communication | HTTP Webhooks |
@@ -618,114 +366,31 @@ This project combines workflow automation, generative AI, distributed tracing, a
 
 ---
 
-# ⚙️ Design Decisions
+## Design Decisions
 
-This project was built with production engineering principles in mind.
-
-### AI-Assisted Incident Analysis
-
-Instead of hardcoding incident responses, Google Gemini dynamically evaluates each production incident and generates contextual recommendations.
-
----
-
-### Workflow Automation
-
-Using n8n eliminates repetitive manual processes while keeping the workflow highly visual, maintainable, and extensible.
+- **AI-assisted analysis, not hardcoded rules** — Google Gemini dynamically evaluates each incident rather than relying on static response templates.
+- **Visual, maintainable automation** — n8n keeps the pipeline transparent and easy to extend without sacrificing automation.
+- **Zero-touch instrumentation** — OpenTelemetry traces every execution without any changes to the workflow's business logic.
+- **Cloud-native observability** — all traces are exported directly to SigNoz Cloud for centralized monitoring, instead of relying on local logs.
+- **Security by design** — see [Security & Best Practices](#security--best-practices) below.
 
 ---
 
-### OpenTelemetry Instrumentation
+## Security & Best Practices
 
-Observability has been implemented without modifying business logic.
+This repository intentionally excludes any sensitive configuration, including:
 
-This allows every workflow execution to be traced automatically while maintaining a clean workflow architecture.
+- API keys and authorization headers
+- OTLP authentication tokens
+- SigNoz ingestion keys
+- Environment secrets
+- Internal workspace credentials
 
----
-
-### Cloud-Native Observability
-
-Rather than relying on local logs, all workflow traces are exported directly to SigNoz Cloud, providing centralized monitoring and analysis.
-
----
-
-### Security by Design
-
-The repository intentionally excludes:
-
-- API Keys
-- Authorization Headers
-- Environment Secrets
-- OTLP Authentication Tokens
-- SigNoz Ingestion Keys
-- Internal Infrastructure Credentials
-
-Only implementation details required to understand the project are included.
+Only representative workflow metadata and screenshots are included, to demonstrate the observability implementation while following secure sharing practices.
 
 ---
 
-# 📊 Production Workflow Summary
-
-```text
-Production Incident
-        │
-        ▼
-Webhook Trigger
-        │
-        ▼
-Normalize Payload
-        │
-        ▼
-Google Gemini AI
-        │
-        ▼
-AI Incident Report
-        │
-        ▼
-Structured JSON Response
-        │
-        ▼
-OpenTelemetry Export
-        │
-        ▼
-SigNoz Cloud
-        │
-        ▼
-Trace Explorer
-Flame Graph
-Waterfall
-```
-
----
-
-# 🎯 Project Highlights
-
-✔ AI-powered Production Incident Analysis
-
-✔ Webhook-based Workflow Automation
-
-✔ Google Gemini Integration
-
-✔ OpenTelemetry Instrumentation
-
-✔ SigNoz Cloud Observability
-
-✔ Distributed Tracing
-
-✔ Workflow-Level Visibility
-
-✔ Node-Level Visibility
-
-✔ Flame Graph Analysis
-
-✔ Waterfall Timeline
-
-✔ Production-Ready Architecture
-
----
-
-# 🚀 Future Enhancements
-
-Potential improvements for future iterations include:
+## Future Enhancements
 
 - Multi-provider LLM support
 - Slack / Microsoft Teams incident notifications
@@ -739,100 +404,40 @@ Potential improvements for future iterations include:
 
 ---
 
-# 🤝 Contributing
+## Contributing
 
-Contributions, ideas, improvements, and discussions are always welcome.
-
-If you'd like to improve the project:
+Contributions, ideas, and discussions are always welcome.
 
 1. Fork the repository
 2. Create a feature branch
 3. Commit your changes
-4. Open a Pull Request
-
-Every contribution helps improve AI-powered observability.
+4. Open a pull request
 
 ---
 
-# 📜 License
+## Acknowledgements
 
-This project is licensed under the **MIT License**.
+This project builds on several excellent open-source technologies and platforms:
 
-See the **LICENSE** file for additional details.
-
----
-
-# 👥 About AI Fleet
-
-AI Fleet is a collaborative initiative focused on building practical AI-powered solutions that combine automation, observability, and modern engineering practices.
-
-The objective is to create intelligent systems that simplify real-world workflows while maintaining production-grade reliability, scalability, and transparency.
-
-Learn more about the team behind this project:
-
-📄 **[AI Fleet Team Documentation](assets/README.md)**
-
----
-
-# 🙏 Acknowledgements
-
-This project would not have been possible without the incredible open-source technologies and communities that continue to push modern software engineering forward.
-
-Special thanks to:
-
-- **SigNoz** — Open-source observability platform for distributed tracing and monitoring.
-- **n8n** — Powerful workflow automation platform.
-- **Google Gemini** — Large Language Model powering AI-driven incident analysis.
-- **OpenTelemetry** — Vendor-neutral standard for telemetry generation.
-- **GitHub** — Platform for collaboration and version control.
-
-A dedicated acknowledgements document is available here:
-
-📄 **[Acknowledgements](assets/acknowledgements.md)**
-
----
-
-# ⭐ If You Found This Project Useful
-
-If you enjoyed exploring this project or found it useful, consider giving the repository a ⭐.
-
-It helps support the project and encourages further development.
-
----
-
-# 📬 Connect
-
-If you'd like to discuss AI Agents, Workflow Automation, Observability, OpenTelemetry, or Production Engineering, feel free to connect and collaborate.
-
----
+- **[SigNoz](https://signoz.io)** — open-source observability platform for distributed tracing and monitoring
+- **[n8n](https://n8n.io)** — workflow automation platform
+- **Google Gemini** — the LLM powering AI-driven incident analysis
+- **OpenTelemetry** — vendor-neutral standard for telemetry generation
+- **GitHub** — collaboration and version control
 
 <p align="center">
-
-## Built with ❤️ by Team AI Fleet
-
-</p>
-
-<p align="center">
-<img src="assets/logo/AIFleet-Logo.png" width="220" alt="AI Fleet Logo">
+  <img src="screenshots/acknowledgements/acknowledgements.png" width="800" alt="Acknowledgements">
 </p>
 
 ---
 
-<p align="center">
+## License
 
-### Acknowledgements
-
-<img src="assets/acknowledgements.png" width="900" alt="Acknowledgements">
-
-</p>
+Licensed under the **MIT License** — see [`LICENSE`](LICENSE) for details.
 
 ---
 
 <p align="center">
-
-### 🚀 Empowering Intelligent Automation with AI, Observability & Production-Grade Engineering
-
-**AI Fleet**
-
+  Built with ❤️ by <b>Team AI Fleet</b><br>
+  <sub>⭐ If this project was useful, consider starring the repo — it helps a lot.</sub>
 </p>
-
