@@ -1,5 +1,5 @@
 {
-  "name": "signoz New Workflow",
+  "name": "AIFleet Production Incident Analyzer",
   "nodes": [
     {
       "parameters": {
@@ -55,7 +55,7 @@
       "typeVersion": 1,
       "position": [
         384,
-        96
+        80
       ],
       "id": "8d6f8244-34e7-435c-9814-304d65025dce",
       "name": "Google Gemini Chat Model",
@@ -161,7 +161,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "66e450fd-3832-4367-8b77-3e6720d32b49",
+  "versionId": "feb1617c-9279-491e-9132-bcf4274deddd",
   "meta": {
     "instanceId": "f8ce3d6400d6d339cafe0c3e02e06557616738946b9cd2e52f0fe71828e6954c"
   },
