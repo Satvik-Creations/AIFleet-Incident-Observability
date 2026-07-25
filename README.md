@@ -326,7 +326,7 @@ A rolling view of AI-generated incident reports as they're produced.
 <p align="center">
   <img src="screenshots/command_center_reports/report_ss_0.png" width="32%" alt="Command center report 1">
   <img src="screenshots/command_center_reports/report_ss_1.png" width="32%" alt="Command center report 2">
-  <img src="screenshots/command_center_reports/report_ss_2.png" width="32%" alt="Command center report 3">
+  <img src="screenshots/command_center_reports/report_ss_3.png" width="32%" alt="Command center report 3">
 </p>
 
 <details>
