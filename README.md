@@ -52,7 +52,7 @@
 
 ## Overview
 
-#**"This project uses SigNoz Cloud as the observability backend."**
+**"This project uses SigNoz Cloud as the observability backend."**
 
 Production systems generate thousands of logs and alerts every day. When an incident hits, engineers typically lose valuable time manually digging through logs, tracing root causes, and deciding on the right corrective action.
 
