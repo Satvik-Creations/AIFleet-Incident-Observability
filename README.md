@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="AIFleet_logo.png" alt="AI Fleet Logo" width="180">
+  <img src="assets/AIFleet/AIFleet_logo.png" alt="AI Fleet Logo" width="180">
 </p>
 
 <h1 align="center">🚨 AIFleet Incident Observability</h1>
