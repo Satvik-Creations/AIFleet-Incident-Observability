@@ -2,7 +2,7 @@
 
 # 🙏 Acknowledgements
 
-<img src="assets/AIFleet/acknowledgements/acknowledgements.png" alt="Acknowledgements" width="100%"/>
+<img src="acknowledgements.png" alt="Acknowledgements" width="100%"/>
 
 </div>
 
