@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/AIFleet/AIFleet_logo.png" alt="AI Fleet Logo" width="220"/>
+<img src="AIFleet_logo.png" alt="AI Fleet Logo" width="220"/>
 
 # AI Fleet
 
