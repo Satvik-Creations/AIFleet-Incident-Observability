@@ -1718,15 +1718,11 @@
 
     /* ---------------------------------------------------------
        9. API LAYER
-       Calls the live n8n webhook directly from the browser:
-       Webhook → Edit Fields → AI Agent (Gemini) → Code in
-       JavaScript → Respond to Webhook → JSON back to this dashboard.
-    
-       No mock/fallback data is used anywhere below — if the
-       webhook fails or returns something unexpected, the error
-       is surfaced to the user instead of being papered over.
+       Calls the live backend proxy instead of embedding the
+       n8n webhook URL directly in the browser code.
+       The actual webhook URL is read from .env by the backend.
        --------------------------------------------------------- */
-    const WEBHOOK_URL = "https://satvikn8n.app.n8n.cloud/webhook/incident-analysis";
+    const WEBHOOK_URL = "/api/webhook";
 
     async function generateIncident() {
       if (isRunning) return;
