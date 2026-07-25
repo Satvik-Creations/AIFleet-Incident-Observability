@@ -429,7 +429,7 @@ This project builds on several excellent open-source technologies and platforms:
 <p align="center">
   <img src="screenshots/acknowledgements/acknowledgements.png" width="800" alt="Acknowledgements">
 </p>
-
+ 
 ---
 
 ## License
