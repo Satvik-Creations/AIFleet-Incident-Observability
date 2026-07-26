@@ -20,7 +20,7 @@
 
 <p align="center">
   <a href="https://satvik-creations.github.io/AIFleet-Incident-Observability/">🎛️ Open Command Center</a> ·
-  <a href="https://drive.google.com/file/d/1nJl1n8iqdNkWOQcm9sF74L9dLEs9RxlE/view?usp=sharing">🎥 Watch the Demo</a> ·
+  <a href="https://drive.google.com/file/d/1KOht8MDn5cB7ryfHa0A4Nb1LGfxTMDrN/view?usp=sharing">🎥 Watch the Demo</a> ·
   <a href="#-getting-started">🚀 Getting Started</a> ·
   <a href="https://github.com/Satvik-Creations/AIFleet-Incident-Observability/tree/main/screenshots">📸 Screenshots</a> ·
   <a href="https://github.com/Satvik-Creations/AIFleet-Incident-Observability/blob/main/LICENSE">📜 License</a>
