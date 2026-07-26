@@ -28,6 +28,38 @@
 
 ---
 
+# 🎬 Watch the Demo First
+
+> **⭐ Recommended for Judges:** This **3-minute demonstration** showcases the complete workflow—from receiving a production incident to AI-powered analysis, automated incident report generation, and end-to-end observability with OpenTelemetry and SigNoz.
+
+<p align="center">
+
+<a href="https://drive.google.com/file/d/1KOht8MDn5cB7ryfHa0A4Nb1LGfxTMDrN/view?usp=sharing">
+
+<img src="assets/AIFleet/demo_video_thumbnail.png"
+alt="Watch the Demo"
+width="100%">
+
+</a>
+
+</p>
+
+<p align="center">
+
+<a href="https://drive.google.com/file/d/1KOht8MDn5cB7ryfHa0A4Nb1LGfxTMDrN/view?usp=sharing">
+
+<img src="https://img.shields.io/badge/▶️%20WATCH%20DEMO%20VIDEO-Click%20Here-red?style=for-the-badge" alt="Watch Demo">
+
+</a>
+
+</p>
+
+<p align="center">
+<b>💡 We recommend watching the demo before exploring the documentation below.</b>
+</p>
+
+---
+
 ## Contents
 
 - [Overview](#overview)
