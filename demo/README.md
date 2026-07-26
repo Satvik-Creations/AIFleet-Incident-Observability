@@ -20,7 +20,7 @@
 
 <a href="https://drive.google.com/file/d/1KOht8MDn5cB7ryfHa0A4Nb1LGfxTMDrN/view?usp=sharing">
 
-<img src="assets/AIFleet/demo_video_thumbnail.png" alt="Demo Video" width="100%">
+<img src="demo_video_thumbnail.png" alt="Demo Video" width="100%">
 
 </a>
 
